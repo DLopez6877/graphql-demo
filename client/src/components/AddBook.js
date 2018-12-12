@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {graphql, compose} from 'react-apollo'
-import {getAuthorsQuery, addBookMutation} from '../queries/queries'
+import {getAuthorsQuery, addBookMutation, getBooksQuery} from '../queries/queries'
 
 
 class AddBook extends Component {
@@ -20,7 +20,7 @@ class AddBook extends Component {
         } else {
             return data.authors.map(author => {
                 return (
-                    <option key={author.id} value={author.name}>{author.name}</option>
+                    <option key={author.id} value={author.id}>{author.name}</option>
                 )
             })
         }
@@ -29,7 +29,8 @@ class AddBook extends Component {
     submitForm(e) {
         e.preventDefault()
         this.props.addBookMutation({
-            variables: this.state
+            variables: this.state,
+            refetchQueries: [{query:getBooksQuery}]
         })
     }
 
@@ -56,7 +57,7 @@ class AddBook extends Component {
 
                 <button>+</button>
             </form>
-        );
+        )
     }
 }
 
