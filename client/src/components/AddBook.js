@@ -32,6 +32,9 @@ class AddBook extends Component {
             variables: this.state,
             refetchQueries: [{query:getBooksQuery}]
         })
+        this.inputName.value = "";
+        this.inputGenre.value = "";
+        this.inputAuthor.value = "";
     }
 
     render() {
@@ -39,17 +42,17 @@ class AddBook extends Component {
             <form id="add-book" onSubmit={this.submitForm.bind(this)}>
                 <div className="field">
                     <label htmlFor="bookName">Book name:</label>
-                    <input type="text" name="bookName" onChange={e => this.setState({name:e.target.value})}/>
+                    <input type="text" name="bookName" ref={el => this.inputName = el} onChange={e => this.setState({name:e.target.value})}/>
                 </div>
 
                 <div className="field">
                     <label htmlFor="genre">Genre:</label>
-                    <input type="text" name="genre" onChange={e => this.setState({genre:e.target.value})}/>
+                    <input type="text" name="genre" ref={el => this.inputGenre = el} onChange={e => this.setState({genre:e.target.value})}/>
                 </div>
 
                 <div className="field">
                     <label htmlFor="author">Author:</label>
-                    <select name="author" onChange={e => this.setState({authorId:e.target.value})}>
+                    <select name="author" ref={el => this.inputAuthor = el} onChange={e => this.setState({authorId:e.target.value})}>
                         <option>Select author</option>
                         {this.displayAuthors()}
                     </select>
